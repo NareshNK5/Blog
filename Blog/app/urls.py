@@ -11,5 +11,11 @@ urlpatterns = [
     path('registerPage/',common.registerPage,name='registerPage'),
     path('registerUserSave/',common.registerUserSave,name='registerUserSave'),
     path('loginCheck/',user.loginCheck,name='loginCheck'),
+
+    path('userBlog/',user.userBlog,name="userBlog"),
+    path('userBlogView/',user.userBlogView,name="userBlogView"),
+    path('userBlogPost/',user.userBlogPost,name="userBlogPost"),
+
 ]
+
 

@@ -18,6 +18,7 @@ class Tbluser(models.Model):
 class Tblpost(models.Model):
     author = models.ForeignKey("Tbluser", related_name='for_auther', on_delete=models.CASCADE)
     title = models.CharField(max_length=50, blank=True, null=True)
+    images = models.FileField(upload_to='images/', max_length=100 , blank=True, null=True)
     content = models.TextField()
     is_active = models.IntegerField(default=0)
     publication_date = models.DateTimeField(auto_now_add=True)

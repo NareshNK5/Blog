@@ -139,7 +139,7 @@ import os
 STATIC_ROOT ='/static/'
 STATIC_URL='/static/'
 STATICFILES_DIR ='/static/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/').replace('\\', '/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 # Default primary key field type

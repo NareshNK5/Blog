@@ -1,18 +1,26 @@
 $(document).ready(function(){
-    $('#user').on('submit',function(e){
-        serializeData = $('#user :input').serializeArray();
+    $('#user').on('click',function(e){
+        // serializeData = $('#user :input').serializeArray();
+        // e.preventDefault();
+        var serializeData = new FormData(this);
+        console.log(serializeData);
         console.log(serializeData);
         myurl="/api/registerUserSave/";
         $.ajax({
             data : serializeData,
             url : myurl,
             type : 'POST',
-            dataType : 'json',
+            // dataType : 'json',
+            contentType: false,
+            processData: false,
             success:function(data){
-                alert(data);
+                alert("Posted");
+                console.log(data.data);
             },
             error:function(data){
-                alert(data);
+                alert("Retry");
+                console.log(data.data);
+
             }
         });
     });
@@ -34,5 +42,4 @@ $(document).ready(function(){
     //         }
 
         // });
-    // });
 });
