@@ -17,6 +17,7 @@ urlpatterns = [
     path('userBlogPost/<int:id>/',user.userBlogPost,name="userBlogPost"),
     path('blogPostImage/',user.blogPostImage,name="blogPostImage"),
     path('blogEdit/<int:id>/',user.blogEdit,name="blogEdit"),
+    path('blogSearch/',user.blogSearch,name="blogSearch"),
 
 ]
 

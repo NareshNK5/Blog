@@ -107,4 +107,26 @@ $('#deleteblog').on('click','.delete',function(){
     })
 })
 //deleteblog end
+
+//search 
+// $('#searchblog').on('click','.search',function(){
+//     key = document.getElementById('key').value;
+//     console.log(key);
+//     // serializeData = $('#searchblog :input').serializeArray();
+//     $.ajax({
+//         type:'POST',
+//         url : "/api/blogSearch/",
+//         data : key,
+//         dataType : 'json',
+//         success:function(data){
+//             var html = "";
+//             $.each(data,function(i,item){
+//                 html +=
+//                 '<p>'+item.id+'</p>';
+//             });
+//             $('#singleblogview').html(html);
+//         }
+//     });
+
 });
+// });

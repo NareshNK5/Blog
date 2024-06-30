@@ -13,16 +13,15 @@ def loginCheck(request):
         password = request.POST['password']
         if Tbluser.objects.filter(username=username,password=password).exists():
             request.session['user'] = username
-            return render(request,'layout/home.html',{"user":username})
+            return HttpResponseRedirect('/api/home/')
         return HttpResponseRedirect('/api/loginPage')
-
 
 def userBlog(request):
     if request.session.has_key("user"):
         un = request.session['user']
         name = Tbluser.objects.get(username=un)
         uid = name.id
-        post=Tblpost.objects.all()
+        post=Tblpost.objects.filter(author=name)
         return render(request,'user/userBlog.html',{"post":post,'user':un,'uid':uid})
 
 @api_view(["POST"])
@@ -57,12 +56,13 @@ def userBlogPost(request,id):
     
 @api_view(["GET"])
 def userBlogView(request):
-    if request.method=="GET":
-        print("education list")
-        post=Tblpost.objects.all()
-        serializer=Tblpostserializer(post,many=True)
-        # print(educate)
-        return Response(serializer.data)
+    if request.session.has_key("user"):
+        un = request.session['user']
+        name = Tbluser.objects.get(username=un)
+        if request.method=="GET":
+            post=Tblpost.objects.filter(author=name)
+            serializer=Tblpostserializer(post,many=True)
+            return Response(serializer.data)
 
 def blogPostImage(request):
     if request.method == "POST":
@@ -76,6 +76,13 @@ def blogPostImage(request):
 @api_view(['GET'])
 def blogEdit(request,id):
     print('blog edit')
-    edu_list = get_object_or_404(Tblpost,id=id)
-    serialize = Tblpostserializer(edu_list,many=False)
+    data = get_object_or_404(Tblpost,id=id)
+    serialize = Tblpostserializer(data,many=False)
     return Response(serialize.data)
+
+# @api_view(['POST'])
+def blogSearch(request):
+    if request.method == "POST":
+        title = request.POST["key"]
+        obj = Tblpost.objects.get(title = title)
+        return render(request,'user/singleBlog.html',{"data":obj})

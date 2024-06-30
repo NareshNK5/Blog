@@ -20,12 +20,19 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="/api/home/">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="/api/userBlog/">My Blog</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-                        {% if user %}
+                        {% if user != "none" %}
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/api/loginPage"><span style="text-transform: capitalize;">{{user}}</span>,Logout</a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link active" aria-current="page" href="/api/loginPage">Login</a></li>
                         {% endif %}
+                        <li class="nav-item">
+                            <form id="searchblog" method="POST" action="/api/blogSearch/">{% csrf_token %}
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="key" placeholder="Enter search Title" aria-label="Enter search term..." aria-describedby="button-search" />
+                                    <button class="btn btn-primary search" type="submit">Search</button>
+                                </div>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -38,7 +45,7 @@
 
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Bloggers Blog 2023</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
