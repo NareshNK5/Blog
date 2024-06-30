@@ -13,7 +13,8 @@ $(document).ready(function(){
                 '<td>'+item.content+'</td>'+
                 '<td><img class="w-75" src='+item.images+' alt="" /></td>'+
                 '<td>'+item.publication_date+'</td>'+
-                '<td><a href="/api/blogEdit/'+item.id+'/ "class="btn btn-primary update" id='+item.id+' data-toggle="modal" data-target="#blogadd" >Edit</a> <a href="edu_edit/'+item.id+'/ "class="btn btn-danger delete" data-toggle="modal" id='+item.id+' data-target="#deleteblog">Delete</a></td>'+
+                '<td><a href="/api/blogEdit/'+item.id+'/ "class="btn btn-primary update" id='+item.id+' >Edit</a> '+
+                '<a href="/api/blogdelete/'+item.id+'/ "class="btn btn-danger delete"  id='+item.id+'>Delete</a></td>'+
                 '</tr>';
             });
             $('#blogview').html(html);
@@ -127,6 +128,23 @@ $('#deleteblog').on('click','.delete',function(){
 //             $('#singleblogview').html(html);
 //         }
 //     });
+
+// deleteblog start
+$('#deleteblog').on('click','.delete',function(){
+    id  = $(this).attr('id');
+    console.log(id);
+    myurl = '/api/blogdelete/'+id+'/';
+    console.log(myurl);
+    $.ajax({
+        url : myurl,
+        method:'GET',
+        success:function(data){
+            alert("Deleted");
+            location.reload();
+        }
+    })
+})
+//deleteblog end
 
 });
 // });

@@ -14,10 +14,14 @@ urlpatterns = [
 
     path('userBlog/',user.userBlog,name="userBlog"),
     path('userBlogView/',user.userBlogView,name="userBlogView"),
+    path('blogViewOne/<int:id>/',user.blogViewOne,name="blogViewOne"),
     path('userBlogPost/<int:id>/',user.userBlogPost,name="userBlogPost"),
     path('blogPostImage/',user.blogPostImage,name="blogPostImage"),
     path('blogEdit/<int:id>/',user.blogEdit,name="blogEdit"),
     path('blogSearch/',user.blogSearch,name="blogSearch"),
+    path('blogdelete/<int:id>',user.blogdelete,name="blogdelete"),
+    path('blograting/<int:id>',user.blograting,name="blograting"),
+    
 
 ]
 

@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from app.serializers.serializer import *
+from django.db.models import Avg
 
 
 def loginCheck(request):
@@ -82,7 +83,49 @@ def blogEdit(request,id):
 
 # @api_view(['POST'])
 def blogSearch(request):
-    if request.method == "POST":
-        title = request.POST["key"]
-        obj = Tblpost.objects.get(title = title)
-        return render(request,'user/singleBlog.html',{"data":obj})
+    if request.session.has_key("user"):
+        un = request.session['user']
+        if request.method == "POST":
+            title = request.POST["key"]
+            obj = Tblpost.objects.get(title = title)
+            rate = Tblrate.objects.filter(post=obj).aggregate(Avg('rating'))
+            print(rate)
+            return render(request,'user/singleBlog.html',{"data":obj,'user':un,"average_rating":rate})
+        
+def blogViewOne(request,id):
+    if request.session.has_key("user"):
+        un = request.session['user']
+        obj = Tblpost.objects.get(id = id)
+        rate = Tblrate.objects.filter(post=obj).aggregate(Avg('rating'))
+        return render(request,'user/singleBlog.html',{"data":obj,'user':un,"average_rating":rate})
+
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
+@api_view(["GET"])
+def blogdelete(request,id):
+    print("test")
+    if is_ajax(request=request):
+        print("blog delete")
+        bloglist = get_object_or_404(Tblpost,id=id)
+        bloglist.delete()
+        return Response("Deleted",status=status.HTTP_200_OK)
+    else:
+        return Response("Not Deleted",status=status.HTTP_400_BAD_REQUEST)
+    
+def blograting(request,id):
+    if request.session.has_key("user"):
+        un = request.session['user']
+        user = Tbluser.objects.get(username = un)
+        post = Tblpost.objects.get(id=id)
+        if Tblrate.objects.filter(author=user,post=post).exists():
+            return render(request,'user/singleBlog.html',{"data":post,'user':un,"msg":"Already you rated"})
+        else:
+            rate = request.POST["rating"]
+            obj = Tblrate()
+            obj.author=user
+            obj.post=post
+            obj.rating=rate
+            obj.save()
+            return HttpResponseRedirect('/api/home/')
+        

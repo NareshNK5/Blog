@@ -24,3 +24,10 @@ class Tblpost(models.Model):
     publication_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
+
+class Tblrate(models.Model):
+    author = models.ForeignKey("Tbluser", related_name='for_auther_rate', on_delete=models.CASCADE)
+    post = models.ForeignKey("Tblpost", related_name='for_post_rate', on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
+    
+    
