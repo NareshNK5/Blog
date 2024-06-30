@@ -3,13 +3,15 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from app.models import *
 from app.serializers.serializer import Tbluserserializer
-from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator
+
 @api_view(['GET','POST'])
-def home(request):
-    print('home')
-    if request.method=='GET':
-        return Response({'data':''},template_name='layout/home.html')
-    return Response({'data':'success'},template_name='layout/home.html')
+def home(request):    
+    post_list = Tblpost.objects.all().order_by("publication_date")
+    paginator = Paginator(post_list, 1)  # 10 posts per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request,"layout/home.html",{"page_obj":page_obj})
 
 @api_view(['GET','POST'])
 def loginPage(request):

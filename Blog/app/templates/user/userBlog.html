@@ -3,8 +3,26 @@
 {% block boby %}
 <div class="row">
 <div class="col lg-3">
-    <div class="text-primary h3 mt-5">My Content</div>
-    <form action="/api/blogPostImage/" method="post" enctype="multipart/form-data">
+    <div class="text-primary h3 mt-3">My Content</div>
+    <form id="blog">
+        {% csrf_token %}
+        <input type="hidden" id="Myid" value="0" required/>
+        <input type="hidden" id="id" class="form-control" name="author" value="{{uid}}"><br>
+        <div class="form-floating mt-3">
+            <input type="text" name="title"  id="title" placeholder="Title" class="form-control">
+            <label for="Title">Title</label>
+        </div>
+        <div class="form-floating mt-3 mb-3">
+            <textarea name="content" id="content" class="form-control h-100"  placeholder="Content" cols="80" rows="10"></textarea>
+            <label for="content">Content</label>
+        </div>
+        <div>
+            <input type="submit" value="Post" class="btn btn-primary mb-5">
+        </div>
+    </form>
+    <div>
+        <div class="text-primary h4">Image Upload</div>
+    <form action="/api/blogPostImage/" method="post" enctype="multipart/form-data">{% csrf_token %}
         <div>
             <select name="post" id="post" class="form-select">
                 {% for i in post %}
@@ -18,36 +36,15 @@
         </div>
         <input type="submit" class="btn btn-primary" value="upload">
     </form>
-    <form id="blog">
-        {% csrf_token %}
-        <input type="hidden" id="Myid" value="0" required/>
-        <input type="hidden" id="id" class="form-control" name="author" value="{{uid}}"><br>
-        <div class="form-floating mt-3">
-            <input type="text" name="title"  id="title" placeholder="Title" class="form-control">
-            <label for="Title">Title</label>
-        </div>
-        <div class="form-floating mt-3">
-            <input type="file" name="images"  id="images" placeholder="Images" class="form-control">
-            <label for="Images">Images</label>
-        </div>
-        <div class="form-floating mt-3 mb-3">
-            <textarea name="content" id="content" class="form-control h-100"  placeholder="Content" cols="80" rows="10"></textarea>
-            <label for="content">Content</label>
-        </div>
-        <div>
-            <input type="button" value="Post" class="btn btn-primary mb-5">
-        </div>
-    </form>
+    </div>
 </div>
 <div class="col lg-9">
     <div class="table">
         <table class="table table-hover rounded" >
             <thead class="thead-dark">
                 <tr>
-                    <!-- <th> User</th> -->
                     <th> Title</th>
                     <th> Contant</th>
-                    <!-- <th> Image</th>        -->
                     <th> Date</th>                   
                     <th colspan="2">Action</th>
                 </tr>

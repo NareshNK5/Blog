@@ -14,7 +14,9 @@ urlpatterns = [
 
     path('userBlog/',user.userBlog,name="userBlog"),
     path('userBlogView/',user.userBlogView,name="userBlogView"),
-    path('userBlogPost/',user.userBlogPost,name="userBlogPost"),
+    path('userBlogPost/<int:id>/',user.userBlogPost,name="userBlogPost"),
+    path('blogPostImage/',user.blogPostImage,name="blogPostImage"),
+    path('blogEdit/<int:id>/',user.blogEdit,name="blogEdit"),
 
 ]
 
