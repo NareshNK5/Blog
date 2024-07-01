@@ -89,14 +89,14 @@ REST_FRAMEWORK = {
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+import os
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blog',
-        'HOST':'',
-        'USER':'root',
-        'PASSWORD':''
+        'NAME': os.environ.get('blog'),
+        'HOST':os.environ.get(''),
+        'USER':os.environ.get('root'),
+        'PASSWORD':os.environ.get('')
         }
     }
 
