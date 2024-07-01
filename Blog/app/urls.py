@@ -9,9 +9,12 @@ urlpatterns = [
     path('home/',common.home,name='home'),
     path('loginPage/',common.loginPage,name='loginPage'),
     path('registerPage/',common.registerPage,name='registerPage'),
-    path('registerUserSave/',common.registerUserSave,name='registerUserSave'),
+    path('registerUserSave/<int:id>/',common.registerUserSave,name='registerUserSave'),
     path('loginCheck/',user.loginCheck,name='loginCheck'),
 
+    path('userProfile/',common.userProfile,name="userProfile"),
+    path('userProfileGet/',common.userProfileGet,name="userProfileGet"),
+    
     path('userBlog/',user.userBlog,name="userBlog"),
     path('userBlogView/',user.userBlogView,name="userBlogView"),
     path('blogViewOne/<int:id>/',user.blogViewOne,name="blogViewOne"),
